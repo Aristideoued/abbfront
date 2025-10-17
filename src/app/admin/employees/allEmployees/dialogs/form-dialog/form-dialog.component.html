@@ -211,11 +211,11 @@
         </div>
          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Url</mat-label>
-            <input matInput formControlName="url" required>
-            <mat-icon class="material-icons-outlined color-icon p-3" matSuffix>language</mat-icon>
-            @if (employeesForm.get('url')?.hasError('required')) {
-            <mat-error>L'url est requis</mat-error>
+            <mat-label>Prenom</mat-label>
+            <input matInput formControlName="prenom" required>
+            <mat-icon class="material-icons-outlined color-icon p-3" matSuffix>face</mat-icon>
+            @if (employeesForm.get('prenom')?.hasError('required')) {
+            <mat-error>Le prenom est requis</mat-error>
             }
           </mat-form-field>
         </div>
@@ -225,21 +225,21 @@
       <div class="row">
         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Url de retour</mat-label>
-            <input matInput formControlName="callbackUrl" required>
-            <mat-icon class="material-icons-outlined color-icon p-3" matSuffix>language</mat-icon>
-            @if (employeesForm.get('callbackUrl')?.hasError('required')) {
-            <mat-error>L'url de retour est requis</mat-error>
+            <mat-label>Téléphone</mat-label>
+            <input matInput formControlName="telephone" required>
+            <mat-icon class="material-icons-outlined color-icon p-3" matSuffix>phone</mat-icon>
+            @if (employeesForm.get('telephone')?.hasError('required')) {
+            <mat-error>Le téléphone requis</mat-error>
             }
           </mat-form-field>
         </div>
          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Commission agregateur</mat-label>
-            <input matInput formControlName="commissionAgregateur" required>
-            <mat-icon class="material-icons-outlined color-icon p-3" matSuffix>percent</mat-icon>
-            @if (employeesForm.get('commissionAgregateur')?.hasError('required')) {
-            <mat-error>La commission de l'agregateur est requise</mat-error>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email"  required>
+           <mat-icon class="material-icons-outlined color-icon p-3" matSuffix>email</mat-icon>
+            @if (employeesForm.get('email')?.hasError('required')) {
+            <mat-error>L'email est requise</mat-error>
             }
           </mat-form-field>
         </div>
@@ -250,16 +250,33 @@
 
            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field class="example-full-width mb-3" appearance="outline">
-                    <mat-label>Administrateur</mat-label>
-                    <mat-select formControlName="userId" required>
-                        <mat-option *ngFor="let dept of dataSource.data" [value]="dept.id">
-                          {{ dept.nom }}  {{ dept.prenom }}
+                    <mat-label>Genre</mat-label>
+                    <mat-select formControlName="sexe" required>
+                        <mat-option *ngFor="let dept of genres" [value]="dept.libelle">
+                          {{ dept.libelle }} 
                         </mat-option>
               
                     </mat-select>
-                    @if (employeesForm.get('userId')?.hasError('required')) {
+                    @if (employeesForm.get('sexe')?.hasError('required')) {
                     <mat-error>
-                      Veuillez sélectionner un administrateur
+                      Veuillez sélectionner un genre
+                    </mat-error>
+                    }
+                  </mat-form-field>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Statut</mat-label>
+                    <mat-select formControlName="statut" required>
+                        <mat-option *ngFor="let dept of statuts" [value]="dept.libelle">
+                          {{ dept.libelle }} 
+                        </mat-option>
+              
+                    </mat-select>
+                    @if (employeesForm.get('statut')?.hasError('required')) {
+                    <mat-error>
+                      Veuillez sélectionner un statut
                     </mat-error>
                     }
                   </mat-form-field>

@@ -132,7 +132,7 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
          this.isLoading = false;
          this.refreshTable();
          this.dataSource.filterPredicate = (data: Plateforme, filter: string) => {
-           const searchStr = `${data.id} ${data.url} ${data.nom} ${data.userNomPrenom} ${data.userTelephone} ${data.userMail} ${data.commissionAgregateur}`.toLowerCase();
+           const searchStr = `${data.id} ${data.prenom} ${data.nom} ${data.telephone} ${data.sexe} ${data.email} ${data.statut}`.toLowerCase();
            return searchStr.includes(filter);
          };
        },
@@ -240,17 +240,12 @@ export class MyProjectsComponent implements OnInit, OnDestroy {
   exportExcel() {
     const exportData = this.dataSource.filteredData.map((x) => ({
       ID: x.id,
-      Url: x.url,
-      Nom: x.nom,
-      Admin: x.userNomPrenom,
-      'Téléphone Admin': x.userTelephone,
-      "Email admin": x.userMail,
-      CommissionAgreagateur: x.commissionAgregateur,
-      "Total transactions(TTC)":x.totalMontantTransactionsTTC,
-      "Total transactions(HT)":x.totalMontantTransactions,
-      "Total paiements(TTC)":x.totalMontantPayoutsTTC,
-      "Total paiements(HT)":x.totalMontantPayouts
-      
+        Nom: x.nom,
+      Prenom: x.prenom,
+      'Téléphone': x.telephone,
+      "Email": x.email,
+      Genre: x.sexe,
+      "tatut":x.statut
     }));
 
     TableExportUtil.exportToExcel(exportData, 'projects_export');

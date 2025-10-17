@@ -78,8 +78,8 @@ export class AllEmployeesFormComponent {
     this.action = data.action;
     this.dialogTitle =
       this.action === 'edit'
-        ? `Edit Plateforme: ${data.employees.nom}`
-        : 'Nouvelle Plateforme';
+        ? `Modifier Parrain: ${data.employees.prenom}`
+        : 'Nouveau Parrain';
     this.employees =
       this.action === 'edit' ? data.employees : new Plateforme({} as Plateforme);
     this.employeesForm = this.createEmployeeForm();
@@ -87,7 +87,7 @@ export class AllEmployeesFormComponent {
 
    ngOnInit() {
    
-    this.loadUsers();
+    //this.loadUsers();
   }
 
   // Create form group for employee details
@@ -98,18 +98,18 @@ export class AllEmployeesFormComponent {
     return this.fb.group({
       id: [this.employees.id],
       nom: [this.employees.nom],
-      url: [this.employees.url, [Validators.required]],
-      callbackUrl: [this.employees.callbackUrl, [Validators.required]],
-      userId: [this.employees.userId, [Validators.required]],
+      prenom: [this.employees.prenom, [Validators.required]],
+      sexe: [this.employees.sexe, [Validators.required]],
+      telephone: [this.employees.telephone, [Validators.required]],
      /* birthDate: [
         formatDate(this.employees.birthDate, 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],*/
      // role: [this.employees.role, [Validators.required]],
-      commissionAgregateur: [this.employees.commissionAgregateur, [Validators.required]],
+      email: [this.employees.email, [Validators.required]],
 
      
-      token: [this.employees.token|| '']
+      statut: [this.employees.statut|| '']
     
     });
   }

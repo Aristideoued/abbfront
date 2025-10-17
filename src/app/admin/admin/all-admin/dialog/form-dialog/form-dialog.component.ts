@@ -72,11 +72,11 @@ export class AllAdminFormComponent {
   private createAdminForm(): UntypedFormGroup {
     return this.fb.group({
       id: [this.admin.id],
-      username: [this.admin.username, [Validators.required, Validators.minLength(3)]], // Username validation
+      email: [this.admin.email, [Validators.required, Validators.minLength(3)]], // Username validation
       nom: [this.admin.nom, [Validators.required]], // Nom is required
       prenom: [this.admin.prenom, [Validators.required]],
-      roleid: [this.admin.roleid, [Validators.required]],
-      role: [this.admin.role], // Prenom is required
+      /*roleid: [this.admin.roleid, [Validators.required]],
+      role: [this.admin.role], */
       telephone: [
         this.admin.telephone,
         [Validators.required, Validators.pattern(/^\+?[\d\s\-\(\)]+$/)],

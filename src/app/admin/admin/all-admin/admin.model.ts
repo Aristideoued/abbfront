@@ -1,6 +1,6 @@
 export class Admin {
   id!: number;
-  username!: string;
+  email!: string;
   password!: string;
   nom!: string;
   prenom!: string;
@@ -10,7 +10,7 @@ export class Admin {
 
   constructor(admin: Partial<Admin> = {}) {
     this.id = admin.id || this.getRandomID();
-    this.username = admin.username || '';
+    this.email = admin.email || '';
     this.password = admin.password || '';
     this.nom = admin.nom || '';
     this.prenom = admin.prenom || '';

@@ -63,30 +63,20 @@ import Swal from 'sweetalert2';
         //DatePipe,
     ]
 })
+
+
 export class AllemployeesComponent implements OnInit, OnDestroy {
   columnDefinitions = [
     { def: 'select', label: 'Checkbox', type: 'check', visible: true },
     { def: 'id', label: 'ID', type: 'text', visible: false },
-    { def: 'userId', label: 'USERID', type: 'text', visible: false },
-        { def: 'token', label: 'Token', type: 'text', visible: false },
-
-    { def: 'nom', label: 'Nom', type: 'text', visible: true },
-    { def: 'totalMontantTransactions', label: 'Total transactions (HT)', type: 'text', visible: true },
-    { def: 'totalMontantTransactionsTTC', label: 'Total transactions (TTC)', type: 'text', visible: true },
-    { def: 'totalMontantPayouts', label: 'Total paiement (HT)', type: 'text', visible: true },
     
-    { def: 'totalMontantPayoutsTTC', label: 'Total paiement (TTC)', type: 'text', visible: true },
-
-
-
-    { def: 'url', label: 'Url', type: 'url', visible: true },
-        { def: 'callbackUrl', label: 'Url de retour', type: 'url', visible: true },
-
-     { def: 'commissionAgregateur', label: 'CommissionAgregateur', type: 'name', visible: true },
-     { def: 'userNomPrenom', label: 'Administrateur', type: 'text', visible: true },
-    { def: 'userTelephone', label: 'Téléphone Administrateur', type: 'phone', visible: true },
-    { def: 'userMail', label: 'Email Administrateur', type: 'email', visible: true },
-    { def: 'actions', label: 'Actions', type: 'actionBtn', visible: true },
+    { def: 'nom', label: 'Nom', type: 'text', visible: true },
+     { def: 'prenom', label: 'Prénom', type: 'text', visible: true },
+      { def: 'sexe', label: 'Genre', type: 'text', visible: true },
+      { def: 'email', label: 'Email', type: 'email', visible: true },
+       { def: 'telephone', label: 'Télephone', type: 'phone', visible: true },
+        { def: 'statut', label: 'Statut', type: 'text', visible: true },
+  { def: 'actions', label: 'Actions', type: 'actionBtn', visible: true },
   ];
   avatar="assets/images/avatar.jpg"
   dataSource = new MatTableDataSource<Plateforme>([]);
@@ -131,11 +121,11 @@ export class AllemployeesComponent implements OnInit, OnDestroy {
       next: (data:any) => {
         
         this.dataSource.data = data.content;
-        console.log("Les plateformes====> ", this.dataSource.data)
+        console.log("Les parrains====> ", this.dataSource.data)
         this.isLoading = false;
         this.refreshTable();
         this.dataSource.filterPredicate = (data: Plateforme, filter: string) => {
-          const searchStr = `${data.id} ${data.url} ${data.nom} ${data.userNomPrenom} ${data.userTelephone} ${data.userMail} ${data.commissionAgregateur}`.toLowerCase();
+          const searchStr = `${data.id} ${data.prenom} ${data.nom} ${data.telephone} ${data.sexe} ${data.email} ${data.statut}`.toLowerCase();
           return searchStr.includes(filter);
         };
       },
@@ -294,16 +284,14 @@ export class AllemployeesComponent implements OnInit, OnDestroy {
   exportExcel() {
     const exportData = this.dataSource.filteredData.map((x) => ({
       ID: x.id,
-      Url: x.url,
+    
       Nom: x.nom,
-      Admin: x.userNomPrenom,
-      'Téléphone Admin': x.userTelephone,
-      "Email admin": x.userMail,
-      CommissionAgreagateur: x.commissionAgregateur,
-      "Total transactions(TTC)":x.totalMontantTransactionsTTC,
-      "Total transactions(HT)":x.totalMontantTransactions,
-      "Total paiements(TTC)":x.totalMontantPayoutsTTC,
-      "Total paiements(HT)":x.totalMontantPayouts
+      Prenom: x.prenom,
+      'Téléphone': x.telephone,
+      "Email": x.email,
+      Genre: x.sexe,
+      "tatut":x.statut
+     
       
     }));
 

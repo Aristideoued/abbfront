@@ -24,7 +24,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Nom d'utilisateur</mat-label>
-            <input matInput formControlName="username" required>
+            <input matInput formControlName="email" required>
             <mat-icon class="material-icons-outlined color-icon p-3" matSuffix>account_circle</mat-icon>
             <mat-error>
               {{ getErrorMessage('username') }}
@@ -69,7 +69,7 @@
             </mat-error>
           </mat-form-field>
         </div>
-      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+      <!--<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Rôle</mat-label>
             <mat-select formControlName="roleid" required>
@@ -81,7 +81,7 @@
               {{ getErrorMessage('role') }}
             </mat-error>
           </mat-form-field>
-        </div>
+        </div>-->
            <!-- Mots de passe (seulement pour l'ajout) -->
       @if (action === 'add') {
         <div class="row">

@@ -1,22 +1,26 @@
 import { formatDate } from '@angular/common';
 
-export class Plateforme {
-  id: string;
-  userId: string;
-  nom: string;
-  url: string;
-    callbackUrl: string;
 
-  token: string;
-  commissionAgregateur: string;
-  userNomPrenom:string;
-  userTelephone: string;
-  userMail: string;
-  totalMontantTransactions:number;
-  totalMontantPayouts:number;
-  totalMontantTransactionsTTC:number;
-  totalMontantPayoutsTTC:number;
-  
+/*
+
+    private Long id;
+    private String nom;
+    private String prenom;
+    private String email;
+    private String telephone;
+    private String statut;
+    private String sexe;
+*/
+export class Plateforme {
+  id: number;
+ 
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
+  sexe: string;
+  statut:string;
+ 
 
   
   // Nouvelles propriétés pour correspondre au form-dialog
@@ -35,22 +39,14 @@ export class Plateforme {
   workLocation?: string;*/
 
   constructor(employees: Partial<Plateforme>) {
-    this.id = employees.id || this.getRandomID().toString();
-    this.token = employees.token || 'Actif';
+    this.id = employees.id || this.getRandomID();
+    this.prenom = employees.prenom || 'Actif';
     this.nom = employees.nom || '';
-    this.commissionAgregateur = employees.commissionAgregateur || '';
-    this.userId = employees.userId || '';
-    this.userMail = employees.userMail || '';
-    this.userNomPrenom = employees.userNomPrenom || '';
-    this.userTelephone = employees.userTelephone || '';
-    this.url = employees.url || '';
-    this.callbackUrl = employees.callbackUrl || '';
+    this.sexe = employees.sexe || '';
+    this.telephone = employees.telephone || '';
+    this.email = employees.email || '';
+    this.statut = employees.statut || '';
 
-     this.totalMontantPayouts = employees.totalMontantPayouts || 0;
-      this.totalMontantPayoutsTTC = employees.totalMontantPayoutsTTC || 0;
-       this.totalMontantTransactions = employees.totalMontantTransactions || 0;
-        this.totalMontantTransactionsTTC = employees.totalMontantTransactionsTTC || 0;
-    
     
     // Initialiser les nouvelles propriétés
   /*  this.name = employees.name || this.nomComplet;

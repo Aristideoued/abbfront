@@ -65,7 +65,7 @@ export class AllAdminComponent implements OnInit, OnDestroy {
   columnDefinitions = [
     { def: 'select', label: 'Checkbox', type: 'check', visible: true },
     { def: 'id', label: 'ID', type: 'number', visible: false },
-    { def: 'username', label: 'Nom d\'utilisateur', type: 'text', visible: true },
+    { def: 'email', label: 'Nom d\'utilisateur', type: 'text', visible: true },
     { def: 'nom', label: 'Nom', type: 'text', visible: true },
     { def: 'prenom', label: 'Prénom', type: 'text', visible: true },
     { def: 'telephone', label: 'Téléphone', type: 'phone', visible: true },
@@ -122,7 +122,7 @@ export class AllAdminComponent implements OnInit, OnDestroy {
         
         // Définir le prédicat de filtrage personnalisé
         this.dataSource.filterPredicate = (data: Admin, filter: string) => {
-          const searchStr = `${data.id} ${data.username} ${data.nom} ${data.prenom} ${data.telephone} ${data.role}`.toLowerCase();
+          const searchStr = `${data.id} ${data.email} ${data.nom} ${data.prenom} ${data.telephone} ${data.role}`.toLowerCase();
           return searchStr.includes(filter);
         };
       },
@@ -238,7 +238,7 @@ deleteItem(row: Admin) {
   exportExcel() {
     const exportData = this.dataSource.filteredData.map((x) => ({
       ID: x.id,
-      'Nom d\'utilisateur': x.username,
+      'Nom d\'utilisateur': x.email,
       Nom: x.nom,
       Prénom: x.prenom,
       Téléphone: x.telephone,

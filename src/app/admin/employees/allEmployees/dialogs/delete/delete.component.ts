@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Plateforme } from '../../employees.model';
 
 export interface DialogData {
-  id: string;
+  id: number;
   nom: string;
    prenom: string;
   department: string;

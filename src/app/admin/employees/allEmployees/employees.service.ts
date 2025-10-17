@@ -42,7 +42,7 @@ export class EmployeesService {
       'Authorization': "Bearer "+this.authService.currentUserValue.token
     });
 
-    return this.httpClient.get<Plateforme[]>(environment.apiUrl+"plateforme/liste", { headers });
+    return this.httpClient.get<Plateforme[]>(environment.apiUrl+"parrains", { headers });
   }
      getStat(): Observable<any> {
     const headers = new HttpHeaders({
@@ -74,7 +74,7 @@ export class EmployeesService {
 
 
 
-      updatePlateforme(employee: Plateforme): Observable<Plateforme> {
+      updatePlateforme(employee: any): Observable<any> {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': "Bearer "+this.authService.currentUserValue.token
@@ -98,12 +98,13 @@ export class EmployeesService {
         .put<any>(environment.apiUrl + "plateforme/update/"+employee.id,JSON.stringify(plateformeData) , { headers })
         .pipe(
           map((response) => new Plateforme({
-            id: response.id || employee.id,
+          id: response.id || employee.id,
             nom: response.nom || employee.nom,
-            url: response.url || employee.url,
-            callbackUrl: response.callbackUrl || employee.callbackUrl,
-            commissionAgregateur: response.commissionAgregateur || employee.commissionAgregateur,
-            token: response.token || employee.token,
+            prenom: response.prenom || employee.prenom,
+            sexe: response.sexe || employee.sexe,
+            statut: response.statut || employee.statut,
+            email: response.email || employee.email,
+            telephone: response.telephone || employee.telephone
            
           })),
           catchError(this.handleError)
@@ -118,13 +119,14 @@ export class EmployeesService {
       });
   
        const plateformeData = {
+      
+            nom:  employee.nom,
+            prenom:  employee.prenom,
+            sexe:  employee.sexe,
+            statut:  employee.statut,
+            email:  employee.email,
+            telephone:  employee.telephone
        
-        nom:employee.nom,
-        token:employee.token,
-        userId:employee.userId,
-        url: employee.url,
-        callbackUrl:employee.callbackUrl,
-        commissionAgregateur: employee.commissionAgregateur
         
        
       };
@@ -132,15 +134,16 @@ export class EmployeesService {
       console.log("Plateforme envoyé============> ",plateformeData)
   
       return this.httpClient
-        .post<any>(environment.apiUrl + "plateforme/creer",JSON.stringify(plateformeData) , { headers })
+        .post<any>(environment.apiUrl + "parrains",JSON.stringify(plateformeData) , { headers })
         .pipe(
           map((response) => new Plateforme({
             id: response.id || employee.id,
             nom: response.nom || employee.nom,
-            url: response.url || employee.url,
-            callbackUrl: response.callbackUrl || employee.callbackUrl,
-            commissionAgregateur: response.commissionAgregateur || employee.commissionAgregateur,
-            token: response.token || employee.token,
+            prenom: response.prenom || employee.prenom,
+            sexe: response.sexe || employee.sexe,
+            statut: response.statut || employee.statut,
+            email: response.email || employee.email,
+            telephone: response.telephone || employee.telephone
            
           })),
           catchError(this.handleError)
@@ -148,7 +151,7 @@ export class EmployeesService {
     }
 
 
-       deletePlateforme(id: string): Observable<Plateforme> {
+       deletePlateforme(id: number): Observable<Plateforme> {
       const headers = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': "Bearer "+this.authService.currentUserValue.token

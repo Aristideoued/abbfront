@@ -6,7 +6,7 @@
     "phone_number": "123-456-7890",
     "hire_date": "2020-03-15",
     "specialization": "Cloud Computing",
-    "technical_skills": ["AWS", "Azure", "Terraform", "Docker", "CNSSPAYnetes"],
+    "technical_skills": ["AWS", "Azure", "Terraform", "Docker", "SIG-ABBnetes"],
     "certifications": [
       "AWS Certified Solutions Architect",
       "Microsoft Certified Azure Fundamentals"
@@ -81,11 +81,11 @@
       "Docker",
       "Jenkins",
       "Terraform",
-      "CNSSPAYnetes",
+      "SIG-ABBnetes",
       "CI/CD"
     ],
     "certifications": [
-      "Certified CNSSPAYnetes Administrator",
+      "Certified SIG-ABBnetes Administrator",
       "Docker Certified Associate"
     ],
     "training_experience": 4,

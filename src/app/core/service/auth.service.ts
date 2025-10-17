@@ -87,6 +87,20 @@ setCurrentUser(user: AuthModel) {
   });
 }
 
+login2(username: string, password: string) {
+  const body = {
+    email: username,
+    password: password
+  };
+
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
+
+  return this.http.post(environment.apiUrl + "auth/signin", body, { headers });
+}
+
+
 
   /* const user = this.users.find((u) => u.username === username && u.password === password);
 

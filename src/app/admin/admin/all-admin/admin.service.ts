@@ -26,7 +26,7 @@ export class AdminService {
       'Authorization': "Bearer "+this.authService.currentUserValue.token
     });
 
-    return this.httpClient.get<Admin[]>(environment.apiUrl + "user/liste", { headers });
+    return this.httpClient.get<Admin[]>(environment.apiUrl + "users", { headers });
   }
 
     getAllApi(): Observable<Api[]> {
@@ -79,21 +79,21 @@ export class AdminService {
     });
 
     const adminData = {
-      username: admin.username,
+      email: admin.email,
       password: admin.password,
       nom: admin.nom,
       prenom: admin.prenom,
-      roles: [{ "id": admin.roleid }] ,
+      role:"ADMIN" ,
       telephone: admin.telephone
     };
     console.log(adminData)
 
     return this.httpClient
-      .post<any>(environment.apiUrl + "user/creer",JSON.stringify(adminData) , { headers })
+      .post<any>(environment.apiUrl + "users",JSON.stringify(adminData) , { headers })
       .pipe(
         map((response) => new Admin({
           id: response.id || admin.id,
-          username: response.username || admin.username,
+          email: response.username || admin.email,
           password: response.password || admin.password,
           nom: response.nom || admin.nom,
           prenom: response.prenom || admin.prenom,
@@ -187,7 +187,7 @@ export class AdminService {
 
     const adminData = {
       id: admin.id,
-      username: admin.username,
+      username: admin.email,
      
       nom: admin.nom,
       prenom: admin.prenom,
@@ -202,7 +202,7 @@ export class AdminService {
       .pipe(
         map((response) => new Admin({
           id: response.id || admin.id,
-          username: response.username || admin.username,
+          email: response.username || admin.email,
           password: response.password || admin.password,
           nom: response.nom || admin.nom,
           prenom: response.prenom || admin.prenom,

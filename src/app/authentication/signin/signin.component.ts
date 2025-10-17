@@ -51,8 +51,8 @@ export class SigninComponent
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ['adminabb', Validators.required],
-      password: ['admin@abb.com', Validators.required],
+      username: ['admin@abb.com', Validators.required],
+      password: ['adminabb', Validators.required],
     });
   }
   get f() {
@@ -96,63 +96,127 @@ export class SigninComponent
    
   }
 
-  onSubmitAdmin() {
-    console.log('test test test')
-    this.submitted = true;
-    this.loading = true;
-    this.error = '';
-    if (this.authForm.invalid) {
-      this.error = "Nom d'utilisateur et mot de passe non valides !";
-      return;
-    } else {
-      this.subs.sink = this.authService .login(this.f['username'].value, this.f['password'].value).subscribe({
-      next: (response:any) => {
-        
-          // this.loading = false;
-          console.log(response)
-          this.authService.token=response.token
-           let role=""
-           if(response.authorities[0].authority.split("_")[1]=="ADMIN"){
-            role="Admin"
 
-           }
-           else if(response.authorities[0].authority.split("_")[1]=="USER"){
-            role="Client"
-           }
+  onSubmitAdmin1() {
+  console.log('Tentative de connexion...');
+  this.submitted = true;
+  this.loading = true;
+  this.error = '';
 
-         let admin:AuthModel={
-         
-          "token":response.token,
-          "type":response.type,
-          "role":role,
-          "username":response.username,
-          "userId":response.userId,
-          "firstName":"",
-          "lastName":"",
-          "img":""
-
-
-        
-        }
-        console.log("Admin====> ",admin)
-         localStorage.setItem('currentUser', JSON.stringify(admin));
-         this.authService.setCurrentUser(admin);
-
-         
-         this.router.navigate(['/admin/dashboard/main']);
-
-        
-      
-     
-      },
-      error: (error) => {
-           this.loading = false;
-        console.error('Erreur :', error)}
-    });
-
-
-    }
+  if (this.authForm.invalid) {
+    this.error = "Nom d'utilisateur et mot de passe non valides !";
+    this.loading = false;
+    return;
   }
+
+  const username = this.authForm.get('username')?.value;
+  const password = this.authForm.get('password')?.value;
+
+
+
+  
+
+
+  console.log("Envoi de la requête avec :", username, password);
+
+  this.subs.sink = this.authService.login(username, password).subscribe({
+    next: (response: any) => {
+      console.log("Réponse du backend :", response);
+      this.loading = false;
+
+      const admin: AuthModel = {
+        token: response.token,
+        type: response.type ?? 'Bearer',
+        role: response.role ?? 'UNKNOWN',
+        username: response.username ?? username,
+        userId: response.userId ?? 0,
+        firstName: response.firstName ?? '',
+        lastName: response.lastName ?? '',
+        img: ''
+      };
+
+      console.log("Admin créé :", admin);
+
+      localStorage.setItem('currentUser', JSON.stringify(admin));
+     this.authService.setCurrentUser(admin);
+     this.router.navigate(['/admin/dashboard/main']);
+    },
+
+    error: (err) => {
+      this.loading = false;
+
+      console.error("Erreur complète :", err);
+
+      if (err.status === 403) {
+        this.error = "Accès refusé (403). Vérifiez vos droits ou vos identifiants.";
+      } else if (err.status === 401) {
+        this.error = "Identifiants invalides. Veuillez réessayer.";
+      } else if (err.error && err.error.message) {
+        this.error = `Erreur : ${err.error.message}`;
+      } else {
+        this.error = "Erreur de connexion au serveur.";
+      }
+
+      console.log("Erreur de login :", this.error);
+    }
+  });
+}
+
+onSubmitAdmin() {
+  console.log('onSubmitAdmin() appelée');
+
+  this.submitted = true;
+  this.loading = true;
+  this.error = '';
+
+  if (this.authForm.invalid) {
+    this.error = "Nom d'utilisateur et mot de passe non valides !";
+    this.loading = false;
+    return;
+  }
+
+  const username = this.authForm.get('username')?.value;
+  const password = this.authForm.get('password')?.value;
+
+  this.subs.sink = this.authService.login(username, password).subscribe({
+    next: (response: any) => {
+      console.log('Réponse du backend:', response);
+
+      let role=""
+      if(response.role=="ADMIN"){
+        role="Admin"
+      }
+      else if(response.role=="USER"){
+        role="Client"
+      }
+
+      const admin: AuthModel = {
+        token: response.token,
+        type: 'Bearer',
+        role: role,
+        username: response.username,
+        userId: response.id ?? 0,
+        firstName: response.nom,
+        lastName: response.prenom,
+        img: ''
+      };
+
+      console.log('Admin =>', admin);
+
+      localStorage.setItem('currentUser', JSON.stringify(admin));
+      this.authService.setCurrentUser(admin);
+
+      this.router.navigate(['/admin/dashboard/main']);
+      this.loading = false;
+    },
+    error: (error) => {
+  this.loading = false;
+  console.error('Erreur de login :', error.status, error.statusText, error.error);
+  this.error = 'Échec de la connexion. Vérifiez vos identifiants.';
+}
+  });
+}
+
 
     onSubmitEmploye() {
     this.submitted = true;

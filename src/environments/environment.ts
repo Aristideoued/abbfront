@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://cnsspayapi.jofedigitale.com/',
+  apiUrl: 'https://SIG-ABBapi.jofedigitale.com/',
   username:'admin',
   password:'admin'
 };
